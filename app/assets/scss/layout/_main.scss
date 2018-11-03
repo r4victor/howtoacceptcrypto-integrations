@@ -1,0 +1,47 @@
+main {
+  .example-block {
+    margin-top: 40px;
+    margin-bottom: 60px;
+    
+    h2 {
+      text-align: center;
+      color: $title-color;
+    }
+    
+    .content {
+      margin: 50px auto 0 auto;
+      max-width: 900px;
+    }
+  }
+  
+  .store {
+    img {
+      max-width: 300px;
+      margin-bottom: 20px;
+    }
+    
+    .content {
+      @include flexbox();
+      @include flex-wrap(wrap);
+      @include justify-content(center);
+      
+      div {
+        padding: 0 20px;
+        
+        .price {
+          display: block;
+          margin-bottom: 20px;
+          font: {
+            size: 1.3rem;
+            weight: 600;
+          }
+          color: #333;
+        }
+        
+        a {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+@import '../utils';
+
+%button-shared {
+  padding: 10px 30px;
+  border-radius: 3px;
+  
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.button {
+  @extend %button-shared;
+  
+  border: {
+    width: 1px;
+    style: solid;
+    color: $light-border-color;
+  }
+  
+  @include transition(border-color 0.25s);
+  
+  color: $primary-color;
+  
+  &:hover {
+    border-color: $primary-color;
+  }
+  
+  &-active {
+    border-color: $primary-color !important;
+  }
+}
+
+.button-fill {
+  @extend %button-shared;
+  background-color: $secondary-color;
+  color: white;
+  @include transition(opacity 0.5s);
+  
+  &:hover {
+    opacity: 0.8;
+  }
+}

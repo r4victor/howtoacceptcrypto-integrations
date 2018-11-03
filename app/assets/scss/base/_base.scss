@@ -1,0 +1,14 @@
+@import '../utils';
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: $link-color;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}

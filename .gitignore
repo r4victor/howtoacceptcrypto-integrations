@@ -1,0 +1,13 @@
+.DS_Store
+
+/.vscode/
+
+**/__pycache__/
+*.py[co]
+
+*.css.map
+
+**/.sass-cache/
+
+/venv/
+/dsgn/
