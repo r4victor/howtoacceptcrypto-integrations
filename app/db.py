@@ -1,7 +1,7 @@
 import redis
 
 
-class DataBase:
+class Database:
     def __init__(self, processor):
         self.processor = processor
 
