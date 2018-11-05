@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class='example-block order'>
+  <h2>Order</h2>
+  <div class="content">
+    <div class="item">
+      <div>
+        <img src="{{ url_for('static', filename='images/items/pipe.jpg') }}">
+      </div>
+      <div>
+        <span class="item-name">Tobacco Pipe</span>
+        <span class="price">$200</span>
+      </div>
+    </div>
+    <div class="order-info">
+      {% block order_info %}
+      <div class="info-item">
+        <span>Order number:</span>
+        <span>{{ order.id }}</span>
+      </div>
+      {% endblock %}
+    </div>
+    {% block payment %}
+    {% endblock %}
+  </div>
+</section>
+{% endblock %}

@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>{% block title %}{% endblock %} – HowToAcceptCrypto.com</title>
+  <title>{% block title %}Example of {{ processor.name }} integration{% endblock %} – HowToAcceptCrypto.com</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
   <header>
-    <h1>{% block h1 %}{% endblock %}</h1>
+    <h1>
+      {% block h1 %}
+      This is an example of <a href="{{ processor.website_url }}" target="_blank">{{ processor.name }}</a> integration.
+      The full code is available on <a href="https://github.com/r4victor/howtoacceptcrypto-integrations/tree/master/app/integrations/{{ processor.github_path }}" target="_blank">GitHub</a>
+      {% endblock %}
+    </h1>
   </header>
   <main>
     {% block content %}{% endblock %}
