@@ -31,7 +31,7 @@
   }
 }
 
-.button-fill {
+.button-fill, input[type=submit] {
   @extend %button-shared;
   background-color: $secondary-color;
   color: white;

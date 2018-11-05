@@ -26,22 +26,109 @@ main {
       @include justify-content(center);
       
       div {
-        padding: 0 20px;
-        
-        .price {
-          display: block;
-          margin-bottom: 20px;
-          font: {
-            size: 1.3rem;
-            weight: 600;
-          }
-          color: #333;
-        }
+        padding: 0 30px;
+        @include flex-basis(320px);
         
         a {
           display: inline-block;
         }
       }
+    }
+  }
+  
+  .checkout, .order {
+    .content {
+      max-width: 600px;
+      
+      .item {
+        max-width: 580px;
+        margin: 0 auto 30px auto;
+        @include flexbox();
+        @include justify-content(space-around);
+
+        img {
+          max-width: 150px;
+        }
+
+        .item-name {
+          display: block;
+          margin: 15px 0;
+        }
+      }
+    }
+  }
+  
+  %central-button {
+    margin-top: 50px;
+    text-align: center;
+  }
+  
+  .checkout {
+    .content {
+      form {
+        .fill {
+          @include flexbox();
+          @include flex-wrap(wrap);
+
+          div {
+            @include flex-basis(300px);
+            @include flexbox();
+            @include flex-wrap(wrap);
+            @include align-items(flex-end);
+            padding: 0 40px;
+            margin-bottom: 10px;
+            margin: 0 auto;
+          }
+
+          label {
+            display: block;
+            padding: 10px 0;
+          }
+
+          input[type=text], input[type=email] {
+            width: 100%;
+            line-height: 1.4rem;
+          }
+          
+          .payment-options {
+            padding-top: 20px;
+            
+            div {
+              padding-left: 10px;
+              
+              label {
+                padding: 10px 0 0 5px;
+              }
+            }
+          }
+        }
+        
+        .complete-order-button {
+          @extend %central-button;
+        }
+      }
+    }
+  }
+  
+  .order {
+    .content {
+      .order-info {
+        margin: 0 auto;
+        max-width: 400px;
+        
+        .info-item {
+          @include flexbox();
+          @include flex-wrap(wrap);
+          @include justify-content(space-between);
+          line-height: 3rem;
+          font-size: 1.4rem;
+          padding: 0 20px;
+        }
+      }
+      
+      .pay-button {
+          @extend %central-button;
+        }
     }
   }
 }
