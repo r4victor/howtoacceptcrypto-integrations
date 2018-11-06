@@ -4,10 +4,10 @@
   <h2>Checkout</h2>
   <div class='content'>
     <div class="item">
-      <div><img src="{{ url_for('static', filename='images/items/pipe.jpg') }}"></div>
+      <div><img src="{{ url_for('static', filename=item.image_filename) }}"></div>
       <div>
-        <span class="item-name">Tobacco Pipe</span>
-        <span class="price">$200</span>
+        <span class="item-name">{{ item.name }}</span>
+        <span class="price">{{ item.price }}</span>
       </div>
     </div>
     <form method="post" action="{{ url_for('.new_order') }}">
@@ -17,49 +17,49 @@
             First name
             <span class="required">*</span>
           </label>
-          <input id="first-name" type="text" required>
+          <input id="first-name" type="text" value="{{ customer.first_name }}" required>
         </div>
         <div>
           <label for="last-name">
             Last name
             <span class="required">*</span>
           </label>
-          <input id="last-name" name="last-name" type="text" required>
+          <input id="last-name" name="last-name" type="text" value="{{ customer.last_name }}" required>
         </div>
         <div>
           <label for="address">
             Address
             <span class="required">*</span>
           </label>
-          <input id="address" name="address" type="text" required>
+          <input id="address" name="address" type="text" value="{{ customer.address }}" required>
         </div>
         <div>
           <label for="zip-code">
             Zip code
             <span class="required">*</span>
           </label>
-          <input id="zip-code" name="zip-code" type="text" required>
+          <input id="zip-code" name="zip-code" type="text" value="{{ customer.zip_code }}" required>
         </div>
         <div>
           <label for="city">
             City
             <span class="required">*</span>
           </label>
-          <input id="city" name="city" type="text" required>
+          <input id="city" name="city" type="text" value="{{ customer.city }}" required>
         </div>
         <div>
           <label for="country">
             Country
             <span class="required">*</span>
           </label>
-          <input id="country" name="country" type="text" required>
+          <input id="country" name="country" type="text" value="{{ customer.country }}" required>
         </div>
         <div>
           <label for="email">
             Email
             <span class="required">*</span>
           </label>
-          <input id="email" name="email" type="email" required>
+          <input id="email" name="email" type="email" value="{{ customer.email }}" required>
         </div>
         <div></div>
         {% block payment_options %}

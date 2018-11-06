@@ -5,11 +5,11 @@
   <div class="content">
     <div class="item">
       <div>
-        <img src="{{ url_for('static', filename='images/items/pipe.jpg') }}">
+        <img src="{{ url_for('static', filename=item.image_filename) }}">
       </div>
       <div>
-        <span class="item-name">Tobacco Pipe</span>
-        <span class="price">$200</span>
+        <span class="item-name">{{ item.name }}</span>
+        <span class="price">{{ item.price }}</span>
       </div>
     </div>
     <div class="order-info">
@@ -18,9 +18,18 @@
         <span>Order number:</span>
         <span>{{ order.id }}</span>
       </div>
+      <div class="info-item">
+        <span>Status:</span>
+        <span>{{ invoice.status }}</span>
+      </div>
       {% endblock %}
     </div>
     {% block payment %}
+    <div class="pay-button">
+      <a href="{{ invoice.url }}">
+        <img src="{{ url_for('.static', filename='button.svg') }}" style="width:210px;">
+      </a>
+    </div>
     {% endblock %}
   </div>
 </section>
