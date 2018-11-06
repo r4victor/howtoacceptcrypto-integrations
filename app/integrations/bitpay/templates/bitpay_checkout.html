@@ -1,0 +1,4 @@
+{% extends 'checkout.html' %}
+{% block complete_order_button %}
+  <input type="image" src="{{ url_for('.static', filename='button.svg') }}" value="Complete order">
+{% endblock %}
