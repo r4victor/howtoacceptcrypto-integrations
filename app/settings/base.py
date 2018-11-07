@@ -13,3 +13,5 @@ if not REDIS_HOST:
 REDIS_PORT = os.getenv('REDIS_PORT')
 if not REDIS_PORT:
     raise ValueError('REDIS_PORT is not set')
+
+SERVER_NAME = os.getenv('SERVER_NAME')
