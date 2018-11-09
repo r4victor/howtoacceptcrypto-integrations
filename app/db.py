@@ -18,7 +18,7 @@ class Database:
 
     def create_order(self, order):
         # Create empty record, we don't need to ship anything
-        return self.db_connection.set(f'{self.processor}:order:{order["id"]}', '', ex=86400)
+        self.db_connection.set(f'{self.processor}:order:{order["id"]}', '', ex=86400)
 
     def update_order(self, order_id, **kwargs):
         for k, v in kwargs.items():
@@ -32,8 +32,11 @@ class Database:
             'invoice_id': self.db_connection.get(f'{self.processor}:order:{order_id}:invoice_id').decode()
         }
 
+    def create_invoice(self, invoice):
+        self.db_connection.set(f'{self.processor}:invoice:{invoice['id']}', '', ex=86400)
+        self.update_invoice(invoice['id'], **invoice)
+
     def update_invoice(self, invoice_id, **kwargs):
-        self.db_connection.set(f'{self.processor}:invoice:{invoice_id}', '', ex=86400)
         for k, v in kwargs.items():
             self.db_connection.set(f'{self.processor}:invoice:{invoice_id}:{k}', v, ex=86400)
         

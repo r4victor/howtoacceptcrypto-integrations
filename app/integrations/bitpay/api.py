@@ -34,19 +34,18 @@ def create_invoice(order, callback_url, redirect_url):
     if response.status_code is not 200:
         return None
     invoice = response.json()['data']
-    save_invoice(invoice)
-    return invoice
-
-
-def save_invoice(invoice):
-    db.update_invoice(
+    db.create_invoice(
         invoice['id'],
         status=invoice['status'],
         url=invoice['url']
     )
+    return invoice
 
 
 def handle_callback():
     invoice = request.json
-    save_invoice(invoice)
+    db.update_invoice(
+        invoice['id'],
+        status=invoice['status']
+    )
     return 'Thank you, BitPay, for amazing API!'
