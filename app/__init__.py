@@ -3,7 +3,7 @@ import os
 from flask import Flask
 from .db import Database
 
-from .integrations.bitpay.server import bp as bitpay_bp
+from .integrations.bitpay.views import bp as bitpay_bp
 
 
 def create_app(test_config=None):
