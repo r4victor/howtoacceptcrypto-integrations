@@ -33,8 +33,8 @@ class Database:
         }
 
     def create_invoice(self, invoice):
-        self.db_connection.set(f'{self.processor}:invoice:{invoice['id']}', '', ex=86400)
-        self.update_invoice(invoice['id'], **invoice)
+        self.db_connection.set(f'{self.processor}:invoice:{invoice["id"]}', '', ex=86400)
+        self.update_invoice(invoice["id"], **invoice)
 
     def update_invoice(self, invoice_id, **kwargs):
         for k, v in kwargs.items():

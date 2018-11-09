@@ -34,11 +34,11 @@ def create_invoice(order, callback_url, redirect_url):
     if response.status_code is not 200:
         return None
     invoice = response.json()['data']
-    db.create_invoice(
-        invoice['id'],
-        status=invoice['status'],
-        url=invoice['url']
-    )
+    db.create_invoice({
+        'id': invoice['id'],
+        'status': invoice['status'],
+        'url': invoice['url']
+    })
     return invoice
 
 
