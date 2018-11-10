@@ -35,12 +35,13 @@ def create_invoice(order, callback_url, redirect_url):
     response = requests.post(CREATE_INVOICE_ENDPOINT, data=data)
     if response.status_code is not 200:
         return None
-    invoice = response.json()['data']
-    db.create_invoice({
-        'id': invoice['id'],
-        'status': invoice['status'],
-        'url': invoice['url']
-    })
+    response_data = response.json()['data']
+    invoice = {
+        'id': response_data['id'],
+        'status': response_data['status'],
+        'url': response_data['url']
+    }
+    db.create_invoice(invoice)
     return invoice
 
 
