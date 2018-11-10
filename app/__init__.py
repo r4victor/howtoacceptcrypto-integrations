@@ -4,6 +4,7 @@ from flask import Flask
 from .db import Database
 
 from .integrations.bitpay.views import bp as bitpay_bp
+from .integrations.CoinGate.views import bp as CoinGate_bp
 
 
 def create_app(test_config=None):
@@ -22,5 +23,6 @@ def create_app(test_config=None):
     Database.init_app(app)
 
     app.register_blueprint(bitpay_bp)
+    app.register_blueprint(CoinGate_bp)
 
     return app
