@@ -26,8 +26,8 @@
     </div>
     {% block payment %}
     <div class="pay-button">
-      <a href="{{ invoice.url }}">
-        <img src="{{ url_for('.static', filename='button.svg') }}" style="width:210px;">
+      <a class="button-fill" href="{{ invoice.url }}" target="_blank">
+        Pay with {{ processor.name }}
       </a>
     </div>
     {% endblock %}

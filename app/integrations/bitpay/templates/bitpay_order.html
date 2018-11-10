@@ -1,1 +1,8 @@
 {% extends 'order.html' %}
+{% block payment %}
+<div class="pay-button">
+    <a href="{{ invoice.url }}">
+    <img src="{{ url_for('.static', filename='button.svg') }}" style="width:210px;">
+    </a>
+</div>
+{% endblock %}
