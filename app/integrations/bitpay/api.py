@@ -9,7 +9,10 @@ from .db import db
 
 TOKEN = os.getenv('BITPAY_TOKEN')
 if TOKEN is None:
-    raise ValueError('BitPay token is not set')
+    raise ValueError('BITPAY_TOKEN is not set')
+
+
+CREATE_INVOICE_ENDPOINT = 'https://test.bitpay.com/invoices'
 
 
 def create_invoice(order, callback_url, redirect_url):
@@ -30,7 +33,7 @@ def create_invoice(order, callback_url, redirect_url):
             'country': order['customer']['country'],
         }
     }
-    response = requests.post('https://test.bitpay.com/invoices', data=data)
+    response = requests.post(CREATE_INVOICE_ENDPOINT, data=data)
     if response.status_code is not 200:
         return None
     invoice = response.json()['data']
