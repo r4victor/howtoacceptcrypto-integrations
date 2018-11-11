@@ -1,0 +1,34 @@
+{% extends 'order.html' %}
+{% block order_info %}
+  <div class="info-item">
+    <span>Order number:</span>
+    <span>{{ order.id }}</span>
+  </div>
+  <div class="info-item">
+    <span>Status:</span>
+    <span>{{ invoice.status_text }}</span>
+  </div>
+{% endblock %}
+{% block payment %}
+  {% if invoice.status >= 0 and invoice.status < 100 %}
+  <h3>Payment details</h3>
+  <div class="payment-details">
+    <div class="info-item">
+      <span>Amount:</span>
+      <span>{{ invoice.amount }} LTCT</span>
+    </div>
+    <div class="info-item">
+      <span>Address to send:</span>
+      <span>{{ invoice.address }}</span>
+    </div>
+    <div class="info-item">
+      <img src="{{ invoice.qrcode_url }}" class="qr-code">
+    </div>
+  </div>
+  {% endif %}
+  <div class="pay-button">
+    <a class="button-fill" href="{{ invoice.url }}" target="_blank">
+      See payment status
+    </a>
+  </div>
+{% endblock %}

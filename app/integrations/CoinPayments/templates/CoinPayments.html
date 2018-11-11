@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="example-block store">
+  <h2>Store</h2>
+  <div class="content">
+    <div>
+      <img src="{{ url_for('static', filename='images/items/pipe.jpg') }}">
+    </div>
+    <div>
+      <h3>Tobacco Pipe</h3>
+      <span class="price">$15</span>
+      <a href="{{ url_for('.checkout') }}" class="button-fill">Buy</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
