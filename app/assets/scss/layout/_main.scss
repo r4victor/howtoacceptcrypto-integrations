@@ -59,8 +59,8 @@ main {
   }
   
   %central-button {
-    margin-top: 50px;
     text-align: center;
+    margin-top: 50px;
   }
   
   .checkout {
@@ -112,23 +112,35 @@ main {
   
   .order {
     .content {
-      .order-info {
-        margin: 0 auto;
+      padding: 0 20px;
+
+      h3 {
+        text-align: center;
+        color: $title-color;
+      }
+
+      .order-info, .payment-details {
+        margin: 0 auto 50px auto;
         max-width: 400px;
         
         .info-item {
           @include flexbox();
           @include flex-wrap(wrap);
           @include justify-content(space-between);
-          line-height: 3rem;
-          font-size: 1.4rem;
-          padding: 0 20px;
+          line-height: 2.8rem;
+          font-size: 1.1rem;
+        }
+      }
+
+      .payment-details {
+        .qr-code {
+          margin: 0 auto;
         }
       }
       
       .pay-button {
-          @extend %central-button;
-        }
+        @extend %central-button;
+      }
     }
   }
 }
