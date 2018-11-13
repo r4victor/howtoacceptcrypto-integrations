@@ -7,8 +7,8 @@
       <img src="{{ url_for('static', filename='images/items/pipe.jpg') }}">
     </div>
     <div>
-      <h3>Tobacco Pipe</h3>
-      <span class="price">$15</span>
+      <h3>{{ item.name }}</h3>
+      <span class="price">{{ item.price }}</span>
       <a href="{{ url_for('.checkout') }}" class="button-fill">Buy</a>
     </div>
   </div>

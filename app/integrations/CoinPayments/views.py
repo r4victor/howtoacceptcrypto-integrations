@@ -26,7 +26,7 @@ def page():
     return render_template(
         'CoinPayments.html',
         processor=processor,
-        item1=items['pipe']
+        item=items['pipe']
     )
 
 
