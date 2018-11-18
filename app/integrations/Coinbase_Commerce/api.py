@@ -1,7 +1,8 @@
 import os
-import requests
+import hmac
 
-from flask import request
+from flask import request, abort
+import requests
 
 from .db import db
 
@@ -9,6 +10,11 @@ from .db import db
 API_KEY = os.getenv('COINBASE_COMMERCE_API_KEY')
 if API_KEY is None:
     raise ValueError('COINBASE_COMMERCE_API_KEY is not set')
+
+
+WEBHOOK_SECRET = os.getenv('COINBASE_COMMERCE_WEBHOOK_SECRET')
+if WEBHOOK_SECRET is None:
+    raise ValueError('COINBASE_COMMERCE_WEBHOOK_SECRET is not set')
 
 
 CREATE_INVOICE_ENDPOINT = 'https://api.commerce.coinbase.com/charges'
@@ -44,6 +50,11 @@ def create_invoice(order, redirect_url):
 
 
 def handle_callback():
+    provided_signature = request.headers.get('X-CC-Webhook-Signature')
+    expecetd_signarure = hmac.digest(WEBHOOK_SECRET.encode(), request.get_data(), 'sha256').hex()
+    if provided_signature != expecetd_signarure:
+        abort(401)
+
     event = request.json['event']
     db.update_invoice(
         event['data']['id'],
