@@ -6,6 +6,7 @@ from .db import Database
 from .integrations.bitpay.views import bp as bitpay_bp
 from .integrations.CoinGate.views import bp as CoinGate_bp
 from .integrations.CoinPayments.views import bp as CoinPayments_bp
+from .integrations.Coinbase_Commerce.views import bp as Coinbase_Commerce_bp
 
 
 def create_app(test_config=None):
@@ -26,5 +27,6 @@ def create_app(test_config=None):
     app.register_blueprint(bitpay_bp)
     app.register_blueprint(CoinGate_bp)
     app.register_blueprint(CoinPayments_bp)
+    app.register_blueprint(Coinbase_Commerce_bp)
 
     return app
