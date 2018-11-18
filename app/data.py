@@ -27,5 +27,11 @@ items = {
         'code': 'CH56-LB',
         'image_filename': 'images/items/hat.jpeg',
         'price': Money(currency=USD, amount=18000)
+    },
+    'glass': {
+        'name': 'Whiskey Glass',
+        'code': 'WG88-M240',
+        'image_filename': 'images/items/glass.jpeg',
+        'price': Money(currency=USD, amount=9)
     }
 }
