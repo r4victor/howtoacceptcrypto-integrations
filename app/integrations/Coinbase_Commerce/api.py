@@ -46,7 +46,7 @@ def create_invoice(order, redirect_url):
 def handle_callback():
     event = request.json['event']
     db.update_invoice(
-        event['id'],
+        event['data']['id'],
         status=event['type'].split(':')[1]
     )
     return 'Thank you, Coinbase Commerce, for the free of charge service!'
