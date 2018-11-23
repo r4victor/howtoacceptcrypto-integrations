@@ -6,7 +6,7 @@ from . import api
 
 
 bp = Blueprint(
-    'bitpay',
+    'BitPay',
     __name__,
     url_prefix='/bitpay',
     static_folder='static',
@@ -16,7 +16,7 @@ bp = Blueprint(
 
 processor = {
     'name': 'BitPay',
-    'github_path': 'bitpay',
+    'github_path': 'BitPay',
     'website_url': 'https://bitpay.com'
 }
 
@@ -24,7 +24,7 @@ processor = {
 @bp.route('/')
 def page():
     return render_template(
-        'bitpay.html',
+        'BitPay.html',
         processor=processor,
         item1=items['hat'],
         item2=items['pipe']
@@ -34,7 +34,7 @@ def page():
 @bp.route('/checkout/')
 def checkout():
     return render_template(
-        'bitpay_checkout.html',
+        'BitPay_checkout.html',
         processor=processor,
         item=items['pipe'],
         customer=customers['Holmes']
@@ -65,7 +65,7 @@ def order(order_id):
         abort(404)
     invoice = db.get_invoice(order['invoice_id'])
     return render_template(
-        'bitpay_order.html',
+        'BitPay_order.html',
         processor=processor,
         item=items['pipe'],
         order=order,

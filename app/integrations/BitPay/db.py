@@ -12,4 +12,4 @@ class ExtendedDatabase(Database):
         }
 
 
-db = ExtendedDatabase('bitpay')
+db = ExtendedDatabase('BitPay')
