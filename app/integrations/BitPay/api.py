@@ -32,7 +32,7 @@ def create_invoice(order, callback_url, redirect_url):
             'country': order['customer']['country'],
         }
     }
-    response = requests.post(CREATE_INVOICE_ENDPOINT, data=data)
+    response = requests.post(CREATE_INVOICE_ENDPOINT, json=data)
     if response.status_code is not 200:
         return None
     response_data = response.json()['data']
