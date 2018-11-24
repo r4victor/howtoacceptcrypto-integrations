@@ -17,15 +17,14 @@ class Database:
         return self.db_connection.incr('last_order_id', amount=1)
 
     def create_order(self, order):
-        # Create empty record, we don't need to ship anything
-        self.db_connection.set(f'{self.processor}:order:{order["id"]}', '', ex=86400)
+        self.db_connection.set(f'{self.processor}:order:{order["id"]}:id', order['id'], ex=86400)
 
     def update_order(self, order_id, **kwargs):
         for k, v in kwargs.items():
             self.db_connection.set(f'{self.processor}:order:{order_id}:{k}', v, ex=86400)
 
     def get_order(self, order_id):
-        if not self.db_connection.exists(f'{self.processor}:order:{order_id}'):
+        if not self.db_connection.exists(f'{self.processor}:order:{order_id}:id'):
             return None
         return {
             'id': order_id,
@@ -33,10 +32,20 @@ class Database:
         }
 
     def create_invoice(self, invoice):
-        self.db_connection.set(f'{self.processor}:invoice:{invoice["id"]}', '', ex=86400)
+        self.db_connection.set(f'{self.processor}:invoice:{invoice["id"]}:id', invoice['id'], ex=86400)
         self.update_invoice(invoice['id'], **invoice)
 
     def update_invoice(self, invoice_id, **kwargs):
         for k, v in kwargs.items():
             self.db_connection.set(f'{self.processor}:invoice:{invoice_id}:{k}', v, ex=86400)
+
+    def get_invoice_data(self, invoice_id, *keys):
+        if not self.db_connection.exists(f'{self.processor}:invoice:{invoice_id}:id'):
+            return None
+        return {
+            key: self.db_connection.get(f'{self.processor}:invoice:{invoice_id}:{key}').decode()
+            for key in keys
+        }
+
+
         
