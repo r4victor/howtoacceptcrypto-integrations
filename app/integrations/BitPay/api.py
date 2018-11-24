@@ -1,7 +1,8 @@
 import os
-import requests
+import json
 
-from flask import request
+import requests
+from flask import request, abort
 
 from .db import db
 
@@ -15,6 +16,7 @@ CREATE_INVOICE_ENDPOINT = 'https://test.bitpay.com/invoices'
 
 
 def create_invoice(order, callback_url, redirect_url):
+    callback_token = os.urandom(16).hex()
     data = {
         'token': TOKEN,
         'price': order['item']['price'].decimal_repr(),
@@ -30,7 +32,8 @@ def create_invoice(order, callback_url, redirect_url):
             'locality': order['customer']['city'],
             'postalCode': order['customer']['zip_code'],
             'country': order['customer']['country'],
-        }
+        },
+        'posData': json.dumps({'callback_token': callback_token})
     }
     response = requests.post(CREATE_INVOICE_ENDPOINT, json=data)
     if response.status_code is not 200:
@@ -38,6 +41,7 @@ def create_invoice(order, callback_url, redirect_url):
     response_data = response.json()['data']
     invoice = {
         'id': response_data['id'],
+        'token': callback_token,
         'status': response_data['status'],
         'url': response_data['url']
     }
@@ -46,9 +50,13 @@ def create_invoice(order, callback_url, redirect_url):
 
 
 def handle_callback():
-    invoice = request.json
+    data = request.json
+    callback_token = json.loads(data['posData'])['callback_token']
+    invoice_token = db.get_invoice_token(data['id'])
+    if callback_token != invoice_token:
+        abort(401)
     db.update_invoice(
-        invoice['id'],
-        status=invoice['status']
+        data['id'],
+        status=data['status']
     )
     return 'Thank you, BitPay, for amazing API!'
