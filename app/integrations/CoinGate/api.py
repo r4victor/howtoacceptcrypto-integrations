@@ -50,8 +50,6 @@ def create_invoice(order, callback_url, redirect_url):
 def handle_callback():
     data = request.form
     invoice_token = db.get_invoice_token(data['id'])
-    print(invoice_token)
-    print(data)
     if data['token'] != invoice_token:
         abort(401)
     db.update_invoice(
