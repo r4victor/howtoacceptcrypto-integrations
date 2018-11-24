@@ -1,7 +1,7 @@
 import os
 import requests
 
-from flask import request
+from flask import request, abort
 
 from .db import db
 
@@ -27,6 +27,7 @@ def create_invoice(order, callback_url, redirect_url):
         'callback_url': callback_url,
         'cancel_url': redirect_url,
         'success_url': redirect_url,
+        'token': os.urandom(16).hex()
     }
     response = requests.post(
         CREATE_INVOICE_ENDPOINT,
@@ -38,8 +39,9 @@ def create_invoice(order, callback_url, redirect_url):
     response_data = response.json()
     invoice = {
         'id': response_data['id'],
+        'token': data['token'],
         'status': response_data['status'],
-        'url': response_data['payment_url']
+        'url': response_data['payment_url'],
     }
     db.create_invoice(invoice)
     return invoice
@@ -47,6 +49,11 @@ def create_invoice(order, callback_url, redirect_url):
 
 def handle_callback():
     data = request.form
+    invoice_token = db.get_invoice_token(data['id'])
+    print(invoice_token)
+    print(data)
+    if data['token'] != invoice_token:
+        abort(401)
     db.update_invoice(
         data['id'],
         status=data['status']
